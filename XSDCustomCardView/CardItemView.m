@@ -82,54 +82,35 @@
             [self.delegate cardItemViewDidMoveRate:rate anmate:NO];
         }
     } else if (panGest.state == UIGestureRecognizerStateEnded) {
-        CGPoint vel = [panGest velocityInView:self];
         CGPoint endPoint = [panGest locationInView:self.superview];
         CGPoint beginPoint = [panGest.beginPoint CGPointValue];
-        if (vel.x > 1000) {
-            // 右侧滑动
-            if (endPoint.x - beginPoint.x) {
-                _isLeft = NO;
-            } else {
-                _isLeft = YES;
-            }
-            [self remove];
-        } else if (vel.x < -1000){
-            // 左侧滑动
-            if (endPoint.x - beginPoint.x) {
-                _isLeft = YES;
-            } else {
-                _isLeft = NO;
-            }
-            [self remove];
-        } else {
-            if (fabs(beginPoint.x - endPoint.x) < self.frame.size.width * 2.0 / 5.0) {
-                [UIView animateWithDuration:0.5 animations:^{
-                    self.center = self->_originalCenter;
-                    self.transform = CGAffineTransformMakeRotation(0);
-                    if ([self.delegate respondsToSelector:@selector(cardItemViewDidMoveRate:anmate:)]) {
-                        [self.delegate cardItemViewDidMoveRate:0 anmate:YES];
-                    }
-                } completion:^(BOOL finished) {
-                    if (finished && self.delegate && [self.delegate respondsToSelector:@selector(cardItemView:moveArea:)]) {
-                        [self.delegate cardItemView:self moveArea:MoveAreaCenter];
-                    }
-                }];
-            } else {
-                if (vel.x <= 1000 && vel.x > 0) {
-                    if (endPoint.x - beginPoint.x) {
-                        _isLeft = NO;
-                    } else {
-                        _isLeft = YES;
-                    }
-                } else if (vel.x >= -1000 && vel.x < 0) {
-                    if (endPoint.x - beginPoint.x) {
-                        _isLeft = YES;
-                    } else {
-                        _isLeft = NO;
-                    }
+        if (fabs(beginPoint.x - endPoint.x) < self.superview.frame.size.width * 2.0 / 5.0) {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.center = self->_originalCenter;
+                self.transform = CGAffineTransformMakeRotation(0);
+                if ([self.delegate respondsToSelector:@selector(cardItemViewDidMoveRate:anmate:)]) {
+                    [self.delegate cardItemViewDidMoveRate:0 anmate:YES];
                 }
-                [self remove];
+            } completion:^(BOOL finished) {
+                if (finished && self.delegate && [self.delegate respondsToSelector:@selector(cardItemView:moveArea:)]) {
+                    [self.delegate cardItemView:self moveArea:MoveAreaCenter];
+                }
+            }];
+        } else {
+            if (endPoint.x > beginPoint.x) {
+                if (endPoint.x - beginPoint.x) {
+                    _isLeft = NO;
+                } else {
+                    _isLeft = YES;
+                }
+            } else {
+                if (endPoint.x - beginPoint.x) {
+                    _isLeft = YES;
+                } else {
+                    _isLeft = NO;
+                }
             }
+            [self remove];
         }
     } else if (panGest.state == UIGestureRecognizerStateBegan) {
         panGest.beginPoint = @([panGest locationInView:self.superview]);
