@@ -18,9 +18,7 @@
 
 @property (nonatomic, strong) NSMutableArray <XSDModel *> * datas;
 @property (nonatomic, assign) pthread_mutex_t mutex;
-
 @property (strong, nonatomic) AVPlayer * player;
-
 @property (nonatomic, assign) NSInteger page;
 
 @end
@@ -65,7 +63,7 @@
      [self loadMore];
 }
 
-- (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView appearIndex:(NSInteger)index {
+- (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView index:(NSInteger)index {
     [self startWithIndex:index carditemView:cardItemView];
 }
 
@@ -101,7 +99,7 @@
     NSString *url = @"http://c.tieba.baidu.com/c/f/nani/recommend/list";
     [GKNetworking get:url params:@{@"pn": @(_page)} success:^(id  _Nonnull responseObject) {
         pthread_mutex_lock(&(self->_mutex));
-        for (NSInteger i = 0; i < 10; i ++) {
+        for (NSInteger i = 0; i < 1; i ++) {
             XSDModel * m = [XSDModel new];
             if (i % 3 == 0) {
                 m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/13_ef7eb591d50666a0239f3b31587e73a7_1.mp4";

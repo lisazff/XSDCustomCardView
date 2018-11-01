@@ -8,17 +8,25 @@
 
 #import "CardView.h"
 #import "CardItemView.h"
+#import <objc/runtime.h>
 
 static const NSInteger ITEM_VIEW_COUNT = 4;     //显示的item个数 必须大于2
 static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒刷新
 
 @interface CardView () <CardItemViewDelegate>
 
-@property (assign, nonatomic) NSInteger itemCount;      //总共的item数量
-@property (assign, nonatomic) NSInteger removedCount;   //已经被移除的view个数
-@property (assign, nonatomic) BOOL isWorking;           //是否正在移除动画中，不去调用itemview的移除方法
-@property (assign, nonatomic) BOOL isAskingMoreData;    //是否已向代理请求数据 数据回来的时候进行状态重置
-@property (copy, nonatomic) NSMutableDictionary *reuseDict;     //缓存池字典
+ // 总共的item数量
+@property (assign, nonatomic) NSInteger itemCount;
+// 已经被移除的view个数
+@property (assign, nonatomic) NSInteger removedCount;
+// 是否正在移除动画中，不去调用itemview的移除方法
+@property (assign, nonatomic) BOOL isWorking;
+ // 是否已向代理请求数据 数据回来的时候进行状态重置
+@property (assign, nonatomic) BOOL isAskingMoreData;
+ // 缓存池字典
+@property (copy, nonatomic) NSMutableDictionary *reuseDict;
+
+@property (nonatomic, assign) BOOL isLastShow;
 
 @end
 
@@ -48,21 +56,17 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 }
 
 - (void)reloadData {
-    if (_dataSource == nil) {
-        return ;
-    }
-    self.isAskingMoreData = NO;
-    self.itemCount = [self numberOfItemViews];
-    
-    if (self.subviews.count < ITEM_VIEW_COUNT) {
-        for (NSInteger i = self.subviews.count; i < ITEM_VIEW_COUNT; i ++) {
-            [self insertCard:self.removedCount+i isReload:YES];
+    if (_dataSource) {
+        self.isAskingMoreData = NO;
+        self.itemCount = [self numberOfItemViews];
+        if (self.subviews.count < ITEM_VIEW_COUNT) {
+            for (NSInteger i = self.subviews.count; i < ITEM_VIEW_COUNT; i ++) {
+                [self insertCard:self.removedCount+i isReload:YES];
+            }
+            [self sortCardsWithRate:0 animate:YES];
         }
-        [self sortCardsWithRate:0 animate:YES];
     }
 }
-
-#pragma mark - Sort
 
 - (void)sortCardsWithRate:(CGFloat)rate animate:(BOOL)isAnmate {
     for (int i = 1; i < self.subviews.count; i ++) {
@@ -86,14 +90,12 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     card.transform = CGAffineTransformTranslate(scaleTransfrom, 0, 10*rate);
 }
 
-#pragma mark - Insert
-
 - (void)insertCard:(NSInteger)index isReload:(BOOL)isReload {
     if (index >= self.itemCount) {
         return;
     }
     CardItemView *itemView = [self itemViewAtIndex:index];
-    if (itemView.delegate == nil) { //初始化的itemView 不是缓存池的
+    if (itemView.delegate == nil) {
         itemView.delegate = self;
         [itemView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestHandle:)]];
     } else {
@@ -111,8 +113,6 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         }
     }
 }
-
-#pragma mark - CardViewDataSource
 
 - (CGSize)itemViewSizeAtIndex:(NSInteger)index {
     if ([self.dataSource respondsToSelector:@selector(cardView:sizeForItemViewAtIndex:)] && index < [self numberOfItemViews]) {
@@ -200,8 +200,6 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     }
     [cardItemView removeFromSuperview];
 }
-
-#pragma mark Getter
 
 - (NSMutableDictionary *)reuseDict {
     if (_reuseDict == nil) {

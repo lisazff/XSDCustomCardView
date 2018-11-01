@@ -24,7 +24,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor yellowColor];
+        [self createUserInterface];
         [self configure];
     }
     return self;
@@ -34,7 +34,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self configure];
-        [self createUserInterface];
     }
     return self;
 }

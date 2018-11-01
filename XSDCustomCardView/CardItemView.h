@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CardItemView;
 
 /// 移除方向
 typedef NS_ENUM(NSUInteger, RemoveRirection) {
@@ -20,9 +21,9 @@ typedef NS_ENUM(NSUInteger, MoveArea) {
     MoveAreaRight,
 };
 
-@class CardItemView;
-
 @protocol CardItemViewDelegate <NSObject>
+
+@optional
 - (void)cardItemView:(CardItemView *)cardItemView didRemoveWithDirection:(RemoveRirection)direction;
 - (void)cardItemViewDidMoveRate:(CGFloat)rate anmate:(BOOL)anmate;
 - (void)cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea;

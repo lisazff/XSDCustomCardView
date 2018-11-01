@@ -18,8 +18,9 @@
 - (void)cardView:(CardView *)cardView dismissCardItemView:(__kindof CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction;
 - (void)cardView:(CardView *)cardView moveCardItemView:(__kindof CardItemView *)cardItemView moveArea:(MoveArea)moveArea;
 - (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView index:(NSInteger)index;
-// TODO: 待添加钩子
-- (void)cardView:(CardView *)cardView lastShowCardItemView:(__kindof CardItemView *)cardItemView;
+
+- (void)cardView:(CardView *)cardView launchLastCardItemView:(__kindof CardItemView *)cardItemView;
+- (void)cardView:(CardView *)cardView cancelLastCardItemView:(__kindof CardItemView *)cardItemView;
 
 @end
 
