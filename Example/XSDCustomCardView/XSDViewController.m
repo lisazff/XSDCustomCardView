@@ -74,9 +74,7 @@
     if (button.tag == 0) {
         [_cardView reloadData];
     } else {
-//        [[UIButton new] sendActionsForControlEvents:(UIControlEventTouchUpInside)];
-//        UIGestureRecognizer * gesture = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(AAA)];
-        
+        [_viewModel loadMore];
     }
 }
 

@@ -146,15 +146,11 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     return 0;
 }
 
-#pragma mark - CardViewDelegate
-
 - (void)tapGestHandle:(UITapGestureRecognizer *)tapGest {
     if ([self.delegate respondsToSelector:@selector(cardView:didClickItemAtIndex:)]) {
         [self.delegate cardView:self didClickItemAtIndex:tapGest.view.tag - 1];
     }
 }
-
-#pragma mark - CardItemViewDelegate
 
 - (void)cardItemView:(CardItemView *)cardItemView didRemoveWithDirection:(RemoveRirection)direction {
     self.isWorking = NO;
@@ -177,8 +173,8 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:dismissCardItemView:index:didRemoveWithDirection:)]) {
         [self.delegate cardView:self dismissCardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];
     }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:appearIndex:)]) {
-        [self.delegate cardView:self appearCardItemView:card appearIndex:card.tag - 1];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
+        [self.delegate cardView:self appearCardItemView:card index:card.tag - 1];
     }
 }
 

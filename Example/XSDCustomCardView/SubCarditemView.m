@@ -46,26 +46,13 @@
     [self addSubview:headImageView];
     headImageView.backgroundColor = UIColor.redColor;
     
-    UILabel * infoLabel = [[UILabel alloc] init];
-    [self addSubview:infoLabel];
-    infoLabel.backgroundColor = UIColor.blueColor;
-    
     [headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(100, 100));
-        make.centerX.mas_equalTo(self);
-        make.top.mas_equalTo(30);
-    }];
-    [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(headImageView.mas_bottom).mas_offset(10);
-        make.size.mas_equalTo(CGSizeMake(200, 30));
-        make.centerX.mas_equalTo(self.mas_centerX);
+        make.edges.mas_equalTo(UIEdgeInsetsMake(20, 10, 20, 10));
     }];
 }
 
 - (void)configure:(XSDModel *)model index:(NSInteger)index {
-    if (!model.videoURL) {
-        [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.imageURL]];
-    }
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.imageURL]];
 }
 
 - (void)prepareForReuse {

@@ -12,6 +12,7 @@
 #import <pthread.h>
 #import "XSDViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GKNetworking.h"
 
 @interface XSDViewModel ()
 
@@ -20,7 +21,7 @@
 
 @property (strong, nonatomic) AVPlayer * player;
 
-@property (nonatomic, weak) SubCarditemView * itemView;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -35,36 +36,10 @@
 }
 
 - (void)handleValue {
+    _page = 1;
     pthread_mutex_init(&_mutex, NULL);
-    
-     _datas = [NSMutableArray array];
-    for (NSInteger i = 0; i < 500; i ++) {
-        XSDModel * m = [XSDModel new];
-        
-        if (i % 3 == 0) {
-            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/13_ef7eb591d50666a0239f3b31587e73a7_1.mp4";
-            m.imageURL = @"https://goss1.vcg.com/creative/vcg/800/new/gic19998843.jpg";
-        } else if (i % 3 == 1) {
-            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/3510416_59d5a0eab109faa3c92506fdb0df686a_0.mp4";
-            m.imageURL = @"https://goss4.vcg.com/creative/vcg/800/new/gic15681475.jpg";
-        } else if (i % 3 == 2) {
-            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/10_90e3fdfacc18bb02fd70006296242150_1.mp4";
-            m.imageURL = @"https://goss.vcg.com/creative/vcg/800/version23/VCG21d5d799668.jpg";
-        }
-        [_datas addObject:m];
-    }
+    _datas = [NSMutableArray array];
 }
-
-- (void)updateCardDataSouce {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-value"
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    _controller ?: [_controller performSelector:@selector(updateDataSource)];
-#pragma clang diagnostic pop
-#pragma clang diagnostic pop
-}
-
 
 + (instancetype)attachController:(__kindof UIViewController *)controller {
     XSDViewModel * viewModel = [[[self class] alloc] init];
@@ -87,7 +62,7 @@
 }
 
 - (void)cardViewNeedMoreData:(CardView *)cardView {
-    
+     [self loadMore];
 }
 
 - (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView appearIndex:(NSInteger)index {
@@ -101,6 +76,9 @@
 }
 
 - (void)startWithIndex:(NSInteger)index carditemView:(__kindof CardItemView *)carditemView {
+    if (index == -1) {
+        return;
+    }
     XSDModel * m = _datas[index];
     AVPlayerItem * playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:m.videoURL]];
     if (self.player) {
@@ -113,6 +91,41 @@
     view.playerLayer.frame = view.bounds;
     [view.layer addSublayer:view.playerLayer];
     [self.player play];
+}
+
+- (void)loadMore {
+    [self loadModeDataSuccess:nil failure:nil];
+}
+
+- (void)loadModeDataSuccess:(void(^)(id s))success failure:(void(^)(id f))failure {
+    NSString *url = @"http://c.tieba.baidu.com/c/f/nani/recommend/list";
+    [GKNetworking get:url params:@{@"pn": @(_page)} success:^(id  _Nonnull responseObject) {
+        pthread_mutex_lock(&(self->_mutex));
+        for (NSInteger i = 0; i < 10; i ++) {
+            XSDModel * m = [XSDModel new];
+            if (i % 3 == 0) {
+                m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/13_ef7eb591d50666a0239f3b31587e73a7_1.mp4";
+                m.imageURL = @"https://goss1.vcg.com/creative/vcg/800/new/gic19998843.jpg";
+            } else if (i % 3 == 1) {
+                m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/3510416_59d5a0eab109faa3c92506fdb0df686a_0.mp4";
+                m.imageURL = @"https://goss4.vcg.com/creative/vcg/800/new/gic15681475.jpg";
+            } else if (i % 3 == 2) {
+                m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/10_90e3fdfacc18bb02fd70006296242150_1.mp4";
+                m.imageURL = @"https://goss.vcg.com/creative/vcg/800/version23/VCG21d5d799668.jpg";
+            }
+            [self.datas addObject:m];
+        }
+        pthread_mutex_unlock(&(self->_mutex));
+        !self.cardView ?: [self.cardView reloadData];
+        !success ?: success(responseObject);
+        self.page ++;
+    } failure:^(NSError * _Nonnull error) {
+        !failure ?: failure(error);
+    }];
+}
+
+- (void)dealloc {
+    pthread_mutex_destroy(&(_mutex));
 }
 
 @end

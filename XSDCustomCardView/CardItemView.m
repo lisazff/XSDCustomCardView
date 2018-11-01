@@ -19,8 +19,6 @@
 
 @implementation CardItemView
 
-#pragma mark - Inital
-
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [self init];
     [self setValue:reuseIdentifier forKey:@"reuseIdentifier"];

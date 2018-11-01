@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)attachController:(XSDViewController *)controller;
 - (void)startWithIndex:(NSInteger)index carditemView:(__kindof CardItemView *)carditemView;
 
+- (void)loadMore;
+
 @end
 
 NS_ASSUME_NONNULL_END

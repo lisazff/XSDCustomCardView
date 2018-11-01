@@ -5,6 +5,7 @@ target 'XSDCustomCardView_Example' do
   pod 'XSDCustomCardView', :path => '../'
 	pod 'Masonry'
     pod 'SDWebImage'
+    pod 'AFNetworking'
   target 'XSDCustomCardView_Tests' do
     inherit! :search_paths
 
