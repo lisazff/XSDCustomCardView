@@ -24,16 +24,16 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
  // 是否已向代理请求数据 数据回来的时候进行状态重置
 @property (assign, nonatomic) BOOL isAskingMoreData;
  // 缓存池字典
-@property (copy, nonatomic) NSMutableDictionary *reuseDict;
+@property (copy, nonatomic) NSMutableDictionary <NSString *, NSMutableArray <__kindof CardItemView *> *> *reuseInfo;
 
-@property (nonatomic, assign) BOOL isLastShow;
+@property (nonatomic, assign) BOOL isAddEmptyView;
 
 @end
 
 @implementation CardView
 
 - (__kindof CardItemView *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
-    NSMutableArray *mutableArray = self.reuseDict[identifier];
+    NSMutableArray *mutableArray = self.reuseInfo[identifier];
     if (mutableArray) {
         if (mutableArray.count > 0) {
             CardItemView *itemView = [mutableArray lastObject];
@@ -56,16 +56,36 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 }
 
 - (void)reloadData {
-    if (_dataSource) {
-        self.isAskingMoreData = NO;
-        self.itemCount = [self numberOfItemViews];
-        if (self.subviews.count < ITEM_VIEW_COUNT) {
-            for (NSInteger i = self.subviews.count; i < ITEM_VIEW_COUNT; i ++) {
-                [self insertCard:self.removedCount+i isReload:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (_dataSource) {
+            self.isAskingMoreData = NO;
+            self.itemCount = [self numberOfItemViews];
+
+            if (self.numberOfItemViews == 0) {
+                if (!_isAddEmptyView) {
+                    if ([self.delegate respondsToSelector:@selector(emptyDataSouceForCardView:)]) {
+                        UIView * emptyView = [self.delegate emptyDataSouceForCardView:self];
+                        [self addSubview:emptyView];
+                        emptyView.center = CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0);
+                        _isAddEmptyView = YES;
+                    }
+                }
+            } else {
+                if (_isAddEmptyView) {
+                    for (UIView * v in self.subviews) {
+                        [v removeFromSuperview];
+                    }
+                    _isAddEmptyView = NO;
+                }
             }
-            [self sortCardsWithRate:0 animate:YES];
+            if (self.subviews.count < ITEM_VIEW_COUNT) {
+                for (NSInteger i = self.subviews.count; i < ITEM_VIEW_COUNT; i ++) {
+                    [self insertCard:self.removedCount+i isReload:YES];
+                }
+                [self sortCardsWithRate:0 animate:YES];
+            }
         }
-    }
+    });
 }
 
 - (void)sortCardsWithRate:(CGFloat)rate animate:(BOOL)isAnmate {
@@ -95,8 +115,6 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         return;
     }
     CardItemView *itemView = [self itemViewAtIndex:index];
-
-
     if (itemView.delegate == nil) {
         itemView.delegate = self;
         [itemView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestHandle:)]];
@@ -136,12 +154,12 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     if ([self.dataSource respondsToSelector:@selector(cardView:itemViewAtIndex:)]) {
         CardItemView *itemView = [self.dataSource cardView:self itemViewAtIndex:index];
         if (itemView == nil) {
-            return [[CardItemView alloc] init];
+            return [[CardItemView alloc] initWithFrame:self.bounds];
         } else {
             return itemView;
         }
     }
-    return [[CardItemView alloc] init];
+    return [[CardItemView alloc] initWithFrame:self.bounds];
 }
 
 - (NSInteger)numberOfItemViews {
@@ -175,6 +193,17 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     } else {
         self.isAskingMoreData = NO;
     }
+    
+    if (self.removedCount == self.itemCount) {
+        if (!_isAddEmptyView) {
+            if ([self.delegate respondsToSelector:@selector(emptyDataSouceForCardView:)]) {
+                UIView * emptyView = [self.delegate emptyDataSouceForCardView:self];
+                [self addSubview:emptyView];
+                emptyView.center = CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0);
+                _isAddEmptyView = YES;
+            }
+        }
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:dismissCardItemView:index:didRemoveWithDirection:)]) {
         [self.delegate cardView:self dismissCardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];
     }
@@ -195,22 +224,22 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 
 - (void)insertItemViewToReuseDict:(CardItemView *)cardItemView {
     if (cardItemView.reuseIdentifier) {
-        NSMutableArray *mutableArray = self.reuseDict[cardItemView.reuseIdentifier];
+        NSMutableArray *mutableArray = self.reuseInfo[cardItemView.reuseIdentifier];
         if (mutableArray == nil) {
             mutableArray = [[NSMutableArray alloc] init];
         }
         [mutableArray addObject:cardItemView];
-        [self.reuseDict setValue:mutableArray forKey:cardItemView.reuseIdentifier];
+        [self.reuseInfo setValue:mutableArray forKey:cardItemView.reuseIdentifier];
         [cardItemView prepareForReuse];
     }
     [cardItemView removeFromSuperview];
 }
 
-- (NSMutableDictionary *)reuseDict {
-    if (_reuseDict == nil) {
-        _reuseDict = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)reuseInfo {
+    if (_reuseInfo == nil) {
+        _reuseInfo = [[NSMutableDictionary alloc] init];
     }
-    return _reuseDict;
+    return _reuseInfo;
 }
 
 @end

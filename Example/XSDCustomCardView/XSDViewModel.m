@@ -73,6 +73,13 @@
     v.playerLayer = nil;
 }
 
+- (UIView *)emptyDataSouceForCardView:(CardView *)cardView {
+    UIView * v = [[UIView alloc] init];
+    v.bounds = CGRectMake(0, 0, 200, 200);
+    v.backgroundColor = UIColor.blueColor;
+    return v;
+}
+
 - (void)startWithIndex:(NSInteger)index carditemView:(__kindof CardItemView *)carditemView {
     if (index == -1) {
         return;

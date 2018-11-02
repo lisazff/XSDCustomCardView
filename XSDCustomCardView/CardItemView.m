@@ -21,7 +21,9 @@
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [self init];
-    [self setValue:reuseIdentifier forKey:@"reuseIdentifier"];
+    if (self) {
+        [self setValue:reuseIdentifier forKey:@"reuseIdentifier"];
+    }
     return self;
 }
 

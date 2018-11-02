@@ -22,6 +22,8 @@
 - (void)cardView:(CardView *)cardView launchLastCardItemView:(__kindof CardItemView *)cardItemView;
 - (void)cardView:(CardView *)cardView cancelLastCardItemView:(__kindof CardItemView *)cardItemView;
 
+- (UIView *)emptyDataSouceForCardView:(CardView *)cardView;
+
 @end
 
 @protocol CardViewDataSource <NSObject>
