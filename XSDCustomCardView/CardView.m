@@ -95,6 +95,8 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         return;
     }
     CardItemView *itemView = [self itemViewAtIndex:index];
+
+
     if (itemView.delegate == nil) {
         itemView.delegate = self;
         [itemView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestHandle:)]];
@@ -106,6 +108,9 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     itemView.tag = index + 1;
     itemView.frame = CGRectMake(self.frame.size.width / 2.0 - size.width / 2.0, self.frame.size.height / 2.0 - size.height / 2.0, size.width, size.height);
     itemView.userInteractionEnabled = YES;
+    if (index == 0 && self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
+        [self.delegate cardView:self appearCardItemView:itemView index:0];
+    }
     if (!isReload) {
         if ((index-self.removedCount) == (ITEM_VIEW_COUNT-1)) {
             NSInteger rate = ITEM_VIEW_COUNT-2;
