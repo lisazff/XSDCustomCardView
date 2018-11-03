@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'XSDCustomCardView_Example' do
+  pod 'XSDCustomCardView', :path => '../'
+
+  target 'XSDCustomCardView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
