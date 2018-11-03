@@ -1,0 +1,29 @@
+PODS:
+  - Masonry (1.1.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - XSDCustomCardView (0.1.0)
+
+DEPENDENCIES:
+  - Masonry
+  - SDWebImage
+  - XSDCustomCardView (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Masonry
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  XSDCustomCardView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  XSDCustomCardView: a3ccd6dc47b274f1ec9b9fa0598f3e9d1604ada2
+
+PODFILE CHECKSUM: 984df48972573af62a9eedf42970eb481343f829
+
+COCOAPODS: 1.5.3

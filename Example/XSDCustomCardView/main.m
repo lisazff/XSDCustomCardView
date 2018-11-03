@@ -9,8 +9,7 @@
 @import UIKit;
 #import "XSDAppDelegate.h"
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([XSDAppDelegate class]));
     }

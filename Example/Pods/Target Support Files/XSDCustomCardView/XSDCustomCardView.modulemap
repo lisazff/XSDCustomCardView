@@ -1,0 +1,6 @@
+framework module XSDCustomCardView {
+  umbrella header "XSDCustomCardView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04067D2E218D6137009B3CB5 /* XSDViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04067D2D218D6137009B3CB5 /* XSDViewModel.m */; };
+		047440DD218D63F400A36900 /* XSDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047440DC218D63F400A36900 /* XSDModel.m */; };
+		047440E0218D650B00A36900 /* SubCarditemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047440DF218D650B00A36900 /* SubCarditemView.m */; };
 		18D87C5458C13B9F6F0592FD /* Pods_XSDCustomCardView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E01B8C111D4B1B0318C391A /* Pods_XSDCustomCardView_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -37,8 +40,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04067D2C218D6137009B3CB5 /* XSDViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XSDViewModel.h; sourceTree = "<group>"; };
+		04067D2D218D6137009B3CB5 /* XSDViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XSDViewModel.m; sourceTree = "<group>"; };
+		047440DB218D63F400A36900 /* XSDModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XSDModel.h; sourceTree = "<group>"; };
+		047440DC218D63F400A36900 /* XSDModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XSDModel.m; sourceTree = "<group>"; };
+		047440DE218D650B00A36900 /* SubCarditemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubCarditemView.h; sourceTree = "<group>"; };
+		047440DF218D650B00A36900 /* SubCarditemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubCarditemView.m; sourceTree = "<group>"; };
 		405A56B9B90E4B676316AB56 /* Pods-XSDCustomCardView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSDCustomCardView_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XSDCustomCardView_Example/Pods-XSDCustomCardView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		58CB5911CEFE22AED9D67823 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		58CB5911CEFE22AED9D67823 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* XSDCustomCardView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XSDCustomCardView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,10 +71,10 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D23693ED0CE66CEE8DCA1F3 /* Pods-XSDCustomCardView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSDCustomCardView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-XSDCustomCardView_Example/Pods-XSDCustomCardView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B70C56928027006EA610BC7E /* XSDCustomCardView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = XSDCustomCardView.podspec; path = ../XSDCustomCardView.podspec; sourceTree = "<group>"; };
+		B70C56928027006EA610BC7E /* XSDCustomCardView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = XSDCustomCardView.podspec; path = ../XSDCustomCardView.podspec; sourceTree = "<group>"; };
 		B978932DC947FC6833183327 /* Pods_XSDCustomCardView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XSDCustomCardView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9248EC09C7AF1FF156DBD3 /* Pods-XSDCustomCardView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSDCustomCardView_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XSDCustomCardView_Tests/Pods-XSDCustomCardView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		E7B6B8C74F50814C21156DA2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E7B6B8C74F50814C21156DA2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EFA069E151E56C6FBCB240AC /* Pods-XSDCustomCardView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSDCustomCardView_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XSDCustomCardView_Tests/Pods-XSDCustomCardView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +157,12 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* XSDViewController.h */,
 				6003F5A6195388D20070C39A /* XSDViewController.m */,
+				04067D2C218D6137009B3CB5 /* XSDViewModel.h */,
+				04067D2D218D6137009B3CB5 /* XSDViewModel.m */,
+				047440DB218D63F400A36900 /* XSDModel.h */,
+				047440DC218D63F400A36900 /* XSDModel.m */,
+				047440DE218D650B00A36900 /* SubCarditemView.h */,
+				047440DF218D650B00A36900 /* SubCarditemView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -207,7 +222,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				EEB771F2F41AD2B6852D71D9 /* [CP] Embed Pods Frameworks */,
+				732CA26387F7F276CB013F0C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,9 +259,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = XSD;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "BetrayalPromise@gmail.com";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = LRXW8DEK2D;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -338,7 +356,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EEB771F2F41AD2B6852D71D9 /* [CP] Embed Pods Frameworks */ = {
+		732CA26387F7F276CB013F0C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,12 +365,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-XSDCustomCardView_Example/Pods-XSDCustomCardView_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/XSDCustomCardView/XSDCustomCardView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XSDCustomCardView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,8 +389,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04067D2E218D6137009B3CB5 /* XSDViewModel.m in Sources */,
 				6003F59E195388D20070C39A /* XSDAppDelegate.m in Sources */,
+				047440E0218D650B00A36900 /* SubCarditemView.m in Sources */,
 				6003F5A7195388D20070C39A /* XSDViewController.m in Sources */,
+				047440DD218D63F400A36900 /* XSDModel.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,19 +452,32 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -467,18 +505,31 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -497,6 +548,7 @@
 			baseConfigurationReference = 405A56B9B90E4B676316AB56 /* Pods-XSDCustomCardView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LRXW8DEK2D;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XSDCustomCardView/XSDCustomCardView-Prefix.pch";
 				INFOPLIST_FILE = "XSDCustomCardView/XSDCustomCardView-Info.plist";
@@ -512,6 +564,7 @@
 			baseConfigurationReference = 8D23693ED0CE66CEE8DCA1F3 /* Pods-XSDCustomCardView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LRXW8DEK2D;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XSDCustomCardView/XSDCustomCardView-Prefix.pch";
 				INFOPLIST_FILE = "XSDCustomCardView/XSDCustomCardView-Info.plist";

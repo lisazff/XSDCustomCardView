@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XSDModel : NSObject
 
+@property (nonatomic, copy) NSString * imageURL;
+@property (nonatomic, copy) NSString * videoURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

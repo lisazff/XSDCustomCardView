@@ -1,0 +1,22 @@
+{
+  "name": "XSDCustomCardView",
+  "version": "0.1.0",
+  "summary": "A short description of XSDCustomCardView.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/BetrayalPromise@gmail.com/XSDCustomCardView",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "BetrayalPromise@gmail.com": "licy@ibobei.cn"
+  },
+  "source": {
+    "git": "https://github.com/BetrayalPromise@gmail.com/XSDCustomCardView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "XSDCustomCardView/*"
+}

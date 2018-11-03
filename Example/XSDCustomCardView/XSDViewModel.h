@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+@import XSDCustomCardView;
+
+@class XSDViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XSDViewModel : NSObject
+@interface XSDViewModel : NSObject <CardViewDelegate, CardViewDataSource, CardItemViewDelegate>
+
+@property (nonatomic, weak) XSDViewController *controller;
+
++ (instancetype)attachController:(XSDViewController *)controller;
 
 @end
 

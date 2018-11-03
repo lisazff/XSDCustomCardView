@@ -1,0 +1,6 @@
+framework module Pods_XSDCustomCardView_Tests {
+  umbrella header "Pods-XSDCustomCardView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
