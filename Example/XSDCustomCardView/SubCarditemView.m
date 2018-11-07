@@ -13,9 +13,7 @@
 
 @interface SubCarditemView ()
 
-@property (strong, nonatomic) AVPlayer *myPlayer;//播放器
-@property (strong, nonatomic) AVPlayerItem *item;//播放单元
-@property (strong, nonatomic) AVPlayerLayer *playerLayer;//播放界面
+
 
 @end
 
@@ -63,16 +61,6 @@
 }
 
 - (void)configure:(XSDModel *)model {
-    self.item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.videoURL]];
-    self.myPlayer = [AVPlayer playerWithPlayerItem:self.item];
-    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.myPlayer];
-    self.playerLayer.frame = self.bounds;
-    [self.layer addSublayer:self.playerLayer];
-}
-
-
-- (void)startShow {
-    [self.myPlayer play];
 }
 
 @end

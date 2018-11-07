@@ -32,13 +32,16 @@
     cardView.backgroundColor = [UIColor lightGrayColor];
     cardView.delegate = _viewModel;
     cardView.dataSource = _viewModel;
+    _viewModel.cardView = cardView;
     
     UIButton * button0 = [[UIButton alloc] init];
+    button0.tag = 0;
     button0.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:button0];
     [button0 addTarget:self action:@selector(handleButtonEvent:) forControlEvents:(UIControlEventTouchUpInside)];
     
     UIButton * button1 = [[UIButton alloc] init];
+    button1.tag = 1;
     button1.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:button1];
     [button1 addTarget:self action:@selector(handleButtonEvent:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -68,10 +71,11 @@
 }
 
 - (void)handleButtonEvent:(UIButton *)button {
-    static BOOL flag = YES;
-    
-    [self.cardView deleteTheTopItemViewWithLeft:flag];
-    flag = !flag;
+    if (button.tag == 0) {
+        [_cardView reloadData];
+    } else {
+        [_viewModel startWithIndex:0];
+    }
 }
 
 - (void)updateDataSource {
@@ -80,12 +84,6 @@
 
 - (void)animationForButton {
     
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [_cardView reloadData];
-    NSArray <SubCarditemView *> * items = _cardView.subviews;
-    [items[0] startShow];
 }
 
 @end

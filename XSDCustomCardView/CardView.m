@@ -27,7 +27,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 - (__kindof CardItemView *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
     NSMutableArray *mutableArray = self.reuseDict[identifier];
     if (mutableArray) {
-        if (mutableArray.count>0) {
+        if (mutableArray.count > 0) {
             CardItemView *itemView = [mutableArray lastObject];
             [mutableArray removeLastObject];
             return itemView;

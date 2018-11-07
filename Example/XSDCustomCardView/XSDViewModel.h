@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XSDViewModel : NSObject <CardViewDelegate, CardViewDataSource>
 
 @property (nonatomic, weak) XSDViewController *controller;
+@property (nonatomic, weak) CardView * cardView;
 
 + (instancetype)attachController:(XSDViewController *)controller;
+
+- (void)startWithIndex:(NSInteger)index;
 
 @end
 

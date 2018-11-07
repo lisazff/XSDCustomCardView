@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SubCarditemView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
