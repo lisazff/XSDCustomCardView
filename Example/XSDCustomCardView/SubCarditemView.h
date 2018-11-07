@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configure:(XSDModel *)model;
 
+- (void)startShow;
+
 @end
 
 NS_ASSUME_NONNULL_END

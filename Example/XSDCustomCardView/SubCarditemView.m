@@ -60,13 +60,6 @@
         make.size.mas_equalTo(CGSizeMake(200, 30));
         make.centerX.mas_equalTo(self.mas_centerX);
     }];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.playerLayer = [AVPlayerLayer layer];
-        self.playerLayer.frame = headImageView.frame;
-        [self.layer addSublayer:self.playerLayer];
-    });
-    
 }
 
 - (void)configure:(XSDModel *)model {
@@ -75,6 +68,10 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.myPlayer];
     self.playerLayer.frame = self.bounds;
     [self.layer addSublayer:self.playerLayer];
+}
+
+
+- (void)startShow {
     [self.myPlayer play];
 }
 

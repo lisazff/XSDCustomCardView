@@ -70,7 +70,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         CardItemView *card = self.subviews[index];
         card.userInteractionEnabled = NO;
         NSInteger y = i>ITEM_VIEW_COUNT-2 ? ITEM_VIEW_COUNT-2 : i;
-        CGFloat realRate = y-rate>0 ? y-rate : 0;
+        CGFloat realRate = y - rate > 0 ? y - rate : 0;
         if (i == (ITEM_VIEW_COUNT-1)) {
             realRate = y;
         }
@@ -109,9 +109,6 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
             NSInteger rate = ITEM_VIEW_COUNT-2;
             [self transformCard:itemView withRate:rate];
         }
-    }
-    if (index == 0 && self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
-        [self.delegate cardView:self appearCardItemView:itemView index:index];
     }
 }
 
@@ -175,10 +172,6 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         }
     } else {
         self.isAskingMoreData = NO;
-    }
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
-        [self.delegate cardView:self appearCardItemView:cardItemView index:self.removedCount];
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:cardItemView:index:didRemoveWithDirection:)]) {
         [self.delegate cardView:self cardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];

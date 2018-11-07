@@ -8,6 +8,7 @@
 
 #import "XSDViewController.h"
 #import "XSDViewModel.h"
+#import "SubCarditemView.h"
 
 @import XSDCustomCardView;
 @import Masonry;
@@ -62,17 +63,11 @@
     }];
 }
 
-- (void)setupUI{
-    
-    
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)handleButtonEvent:(UIButton *)button
-{
+- (void)handleButtonEvent:(UIButton *)button {
     static BOOL flag = YES;
     
     [self.cardView deleteTheTopItemViewWithLeft:flag];
@@ -87,15 +82,10 @@
     
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_cardView reloadData];
-//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//    [button.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
-//    [anim setToValue:@(2 * M_PI)];
-//    [anim setDuration:0.5f];
-//    [button.layer addAnimation:anim forKey:@"rotationAnim"];
-    
+    NSArray <SubCarditemView *> * items = _cardView.subviews;
+    [items[0] startShow];
 }
 
 @end
