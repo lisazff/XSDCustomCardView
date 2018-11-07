@@ -8,6 +8,16 @@
 
 #import "SubCarditemView.h"
 @import Masonry;
+#import <AVFoundation/AVFoundation.h>
+#import "XSDModel.h"
+
+@interface SubCarditemView ()
+
+@property (strong, nonatomic) AVPlayer *myPlayer;//播放器
+@property (strong, nonatomic) AVPlayerItem *item;//播放单元
+@property (strong, nonatomic) AVPlayerLayer *playerLayer;//播放界面
+
+@end
 
 @implementation SubCarditemView
 
@@ -50,10 +60,22 @@
         make.size.mas_equalTo(CGSizeMake(200, 30));
         make.centerX.mas_equalTo(self.mas_centerX);
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.playerLayer = [AVPlayerLayer layer];
+        self.playerLayer.frame = headImageView.frame;
+        [self.layer addSublayer:self.playerLayer];
+    });
+    
 }
 
-- (void)configure:(XSDViewModel *)model {
-    
+- (void)configure:(XSDModel *)model {
+    self.item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.videoURL]];
+    self.myPlayer = [AVPlayer playerWithPlayerItem:self.item];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.myPlayer];
+    self.playerLayer.frame = self.bounds;
+    [self.layer addSublayer:self.playerLayer];
+    [self.myPlayer play];
 }
 
 @end

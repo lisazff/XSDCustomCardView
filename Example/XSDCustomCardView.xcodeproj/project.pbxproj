@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		04067D2E218D6137009B3CB5 /* XSDViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04067D2D218D6137009B3CB5 /* XSDViewModel.m */; };
+		040C3F8B2192C114004ECD50 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040C3F8A2192C114004ECD50 /* AVFoundation.framework */; };
+		040C3F8D2192C11C004ECD50 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040C3F8C2192C11C004ECD50 /* QuartzCore.framework */; };
 		047440DD218D63F400A36900 /* XSDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047440DC218D63F400A36900 /* XSDModel.m */; };
 		047440E0218D650B00A36900 /* SubCarditemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047440DF218D650B00A36900 /* SubCarditemView.m */; };
 		18D87C5458C13B9F6F0592FD /* Pods_XSDCustomCardView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E01B8C111D4B1B0318C391A /* Pods_XSDCustomCardView_Example.framework */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		04067D2C218D6137009B3CB5 /* XSDViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XSDViewModel.h; sourceTree = "<group>"; };
 		04067D2D218D6137009B3CB5 /* XSDViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XSDViewModel.m; sourceTree = "<group>"; };
+		040C3F8A2192C114004ECD50 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		040C3F8C2192C11C004ECD50 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		047440DB218D63F400A36900 /* XSDModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XSDModel.h; sourceTree = "<group>"; };
 		047440DC218D63F400A36900 /* XSDModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XSDModel.m; sourceTree = "<group>"; };
 		047440DE218D650B00A36900 /* SubCarditemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubCarditemView.h; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040C3F8D2192C11C004ECD50 /* QuartzCore.framework in Frameworks */,
+				040C3F8B2192C114004ECD50 /* AVFoundation.framework in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
@@ -139,6 +145,8 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				040C3F8C2192C11C004ECD50 /* QuartzCore.framework */,
+				040C3F8A2192C114004ECD50 /* AVFoundation.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,

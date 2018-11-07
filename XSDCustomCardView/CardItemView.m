@@ -55,10 +55,21 @@
     self.layer.masksToBounds = YES;
 }
 
-#pragma mark - UIPanGestureRecognizer
-
 - (void)panGestHandle:(UIPanGestureRecognizer *)panGest {
     if (panGest.state == UIGestureRecognizerStateChanged) {
+        CGPoint superViewCenter = CGPointMake(self.superview.frame.size.width / 2.0, self.superview.frame.size.height / 2.0);
+        CGPoint currentViewCenter = self.center;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(cardItemView:moveArea:)]) {
+            if (superViewCenter.x - currentViewCenter.x > 0) {
+                [self.delegate cardItemView:self moveArea:MoveAreaLeft];
+            } else if (superViewCenter.x - currentViewCenter.x == 0) {
+                [self.delegate cardItemView:self moveArea:MoveAreaCenter];
+            } else if  (superViewCenter.x - currentViewCenter.x < 0) {
+                [self.delegate cardItemView:self moveArea:MoveAreaRight];
+            } else {
+                NSAssert(NO, @" 未知的的位置参数");
+            }
+        }
         CGPoint movePoint = [panGest translationInView:self];
         _isLeft = (movePoint.x < 0);
         self.center = CGPointMake(self.center.x + movePoint.x, self.center.y + movePoint.y);
@@ -100,6 +111,10 @@
                     if ([self.delegate respondsToSelector:@selector(cardItemViewDidMoveRate:anmate:)]) {
                         [self.delegate cardItemViewDidMoveRate:0 anmate:YES];
                     }
+                } completion:^(BOOL finished) {
+                    if (finished && self.delegate && [self.delegate respondsToSelector:@selector(cardItemView:moveArea:)]) {
+                        [self.delegate cardItemView:self moveArea:MoveAreaCenter];
+                    }
                 }];
             } else {
                 if (vel.x <= 1000 && vel.x > 0) {
@@ -124,6 +139,9 @@
 }
 
 - (void)remove {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardItemView:moveArea:)]) {
+        [self.delegate cardItemView:self moveArea:MoveAreaCenter];
+    }
     [self removeWithLeft:_isLeft];
 }
 
@@ -138,10 +156,8 @@
             self.center = CGPointMake(-self.frame.size.width, self.center.y - self->_currentAngle * self.frame.size.height + (self->_currentAngle == 0 ? 100 : 0));
         }
     } completion:^(BOOL finished) {
-        if (finished) {
-            if ([self.delegate respondsToSelector:@selector(cardItemViewDidRemoveFromSuperView:)]) {
-                [self.delegate cardItemViewDidRemoveFromSuperView:self];
-            }
+        if (finished && [self.delegate respondsToSelector:@selector(cardItemView:didRemoveWithDirection:)]) {
+            [self.delegate cardItemView:self didRemoveWithDirection:_isLeft == YES ? RemoveRirectionLeft : RemoveRirectionRight];
         }
     }];
 }

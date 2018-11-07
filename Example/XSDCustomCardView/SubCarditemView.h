@@ -7,13 +7,13 @@
 //
 
 #import <XSDCustomCardView/XSDCustomCardView.h>
-@class XSDViewModel;
+@class XSDModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SubCarditemView : CardItemView
 
-- (void)configure:(XSDViewModel *)model;
+- (void)configure:(XSDModel *)model;
 
 @end
 

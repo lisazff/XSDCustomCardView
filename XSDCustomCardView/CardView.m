@@ -24,7 +24,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 
 @implementation CardView
 
-- (CardItemView *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
+- (__kindof CardItemView *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
     NSMutableArray *mutableArray = self.reuseDict[identifier];
     if (mutableArray) {
         if (mutableArray.count>0) {
@@ -110,6 +110,9 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
             [self transformCard:itemView withRate:rate];
         }
     }
+    if (index == 0 && self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
+        [self.delegate cardView:self appearCardItemView:itemView index:index];
+    }
 }
 
 #pragma mark - CardViewDataSource
@@ -156,7 +159,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
 
 #pragma mark - CardItemViewDelegate
 
-- (void)cardItemViewDidRemoveFromSuperView:(CardItemView *)cardItemView {
+- (void)cardItemView:(CardItemView *)cardItemView didRemoveWithDirection:(RemoveRirection)direction {
     self.isWorking = NO;
     self.removedCount ++;
     [self insertItemViewToReuseDict:cardItemView];
@@ -172,6 +175,19 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         }
     } else {
         self.isAskingMoreData = NO;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:index:)]) {
+        [self.delegate cardView:self appearCardItemView:cardItemView index:self.removedCount];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:cardItemView:index:didRemoveWithDirection:)]) {
+        [self.delegate cardView:self cardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];
+    }
+}
+
+- (void)cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:cardItemView:moveArea:)]) {
+        [self.delegate cardView:self cardItemView:cardItemView moveArea:moveArea];
     }
 }
 

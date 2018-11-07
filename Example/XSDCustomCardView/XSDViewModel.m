@@ -64,6 +64,7 @@
     if (itemView == nil) {
         itemView = [[SubCarditemView alloc] initWithReuseIdentifier:NSStringFromClass(SubCarditemView.class)];
     }
+    [itemView configure:_datas[index]];
     return itemView;
 }
 
@@ -71,13 +72,24 @@
 
 }
 
-- (void)cardItemViewDidRemoveFromSuperView:(CardItemView *)CardItemView {
-    [_controller animationForButton];
-}
-
-- (void)cardItemViewDidMoveRate:(CGFloat)rate anmate:(BOOL)anmate {
+- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction {
     
 }
 
+- (void)cardView:(CardView *)cardView didClickItemAtIndex:(NSInteger)index {
+    
+}
+
+- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea {
+    NSLog(@"%lu", (unsigned long)moveArea);
+}
+
+- (void)cardView:(CardView *)cardView appearCardItemView:(CardItemView *)cardItemView index:(NSInteger)index {
+    
+}
+
+- (void)cardView:(CardView *)cardView disappearCardItemView:(CardItemView *)cardItemView index:(NSInteger)index {
+    
+}
 
 @end
