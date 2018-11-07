@@ -33,3 +33,10 @@
 - (void)removeWithLeft:(BOOL)left;
 
 @end
+
+
+@interface UIPanGestureRecognizer (Location)
+
+@property (nonatomic, strong) NSValue * beginPoint;
+
+@end

@@ -33,7 +33,7 @@
     pthread_mutex_init(&_mutex, NULL);
     
      _datas = [NSMutableArray array];
-    for (NSInteger i = 0; i < 100; i ++) {
+    for (NSInteger i = 0; i < 500; i ++) {
         [_datas addObject:[XSDModel new]];
     }
 }

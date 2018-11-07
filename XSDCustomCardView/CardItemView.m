@@ -7,6 +7,7 @@
 //
 
 #import "CardItemView.h"
+#import <objc/runtime.h>
 
 @interface CardItemView ()
 
@@ -60,7 +61,6 @@
     if (panGest.state == UIGestureRecognizerStateChanged) {
         CGPoint movePoint = [panGest translationInView:self];
         _isLeft = (movePoint.x < 0);
-
         self.center = CGPointMake(self.center.x + movePoint.x, self.center.y + movePoint.y);
 
         CGFloat angle = (self.center.x - self.frame.size.width / 2.0) / self.frame.size.width / 4.0;
@@ -72,39 +72,55 @@
             CGFloat rate = fabs(angle) / 0.15 > 1 ? 1 : fabs(angle) / 0.15;
             [self.delegate cardItemViewDidMoveRate:rate anmate:NO];
         }
-        printf("%d\n",(int)_isLeft);
     } else if (panGest.state == UIGestureRecognizerStateEnded) {
         CGPoint vel = [panGest velocityInView:self];
-        if (vel.x > 800 || vel.x < - 800) {
+        CGPoint endPoint = [panGest locationInView:self.superview];
+        CGPoint beginPoint = [panGest.beginPoint CGPointValue];
+        if (vel.x > 1000) {
+            // 右侧滑动
+            if (endPoint.x - beginPoint.x) {
+                _isLeft = NO;
+            } else {
+                _isLeft = YES;
+            }
             [self remove];
-            return ;
-        }
-        if (self.frame.origin.x + self.frame.size.width > 150 && self.frame.origin.x < self.frame.size.width - 150) {
-            [UIView animateWithDuration:0.5 animations:^{
-                self.center = self->_originalCenter;
-                self.transform = CGAffineTransformMakeRotation(0);
-                if ([self.delegate respondsToSelector:@selector(cardItemViewDidMoveRate:anmate:)]) {
-                    [self.delegate cardItemViewDidMoveRate:0 anmate:YES];
-                }
-            }];
+        } else if (vel.x < -1000){
+            // 左侧滑动
+            if (endPoint.x - beginPoint.x) {
+                _isLeft = YES;
+            } else {
+                _isLeft = NO;
+            }
+            [self remove];
         } else {
-            [self remove];
+            if (fabs(beginPoint.x - endPoint.x) < self.frame.size.width * 2.0 / 5.0) {
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.center = self->_originalCenter;
+                    self.transform = CGAffineTransformMakeRotation(0);
+                    if ([self.delegate respondsToSelector:@selector(cardItemViewDidMoveRate:anmate:)]) {
+                        [self.delegate cardItemViewDidMoveRate:0 anmate:YES];
+                    }
+                }];
+            } else {
+                if (vel.x <= 1000 && vel.x > 0) {
+                    if (endPoint.x - beginPoint.x) {
+                        _isLeft = NO;
+                    } else {
+                        _isLeft = YES;
+                    }
+                } else if (vel.x >= -1000 && vel.x < 0) {
+                    if (endPoint.x - beginPoint.x) {
+                        _isLeft = YES;
+                    } else {
+                        _isLeft = NO;
+                    }
+                }
+                [self remove];
+            }
         }
-        printf("%d\n",(int)_isLeft);
     } else if (panGest.state == UIGestureRecognizerStateBegan) {
-        printf("%d\n",(int)_isLeft);
+        panGest.beginPoint = @([panGest locationInView:self.superview]);
     }
-//    if (panGest.state == UIGestureRecognizerStateBegan) {
-//        NSLog(@"开始");
-//    } else if (panGest.state == UIGestureRecognizerStateEnded) {
-//        NSLog(@"结束");
-//    } else if (panGest.state == UIGestureRecognizerStateFailed) {
-//        NSLog(@"失败");
-//    } else if (panGest.state == UIGestureRecognizerStateCancelled) {
-//        NSLog(@"取消");
-//    } else if (panGest.state == UIGestureRecognizerStateChanged) {
-//        NSLog(@"变化");
-//    }
 }
 
 - (void)remove {
@@ -128,6 +144,18 @@
             }
         }
     }];
+}
+
+@end
+
+@implementation UIPanGestureRecognizer (Location)
+
+- (void)setBeginPoint:(NSValue *)beginPoint {
+    objc_setAssociatedObject(self, @selector(beginPoint), beginPoint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSValue *)beginPoint {
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 @end
