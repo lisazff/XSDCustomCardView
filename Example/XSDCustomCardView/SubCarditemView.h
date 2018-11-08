@@ -7,15 +7,16 @@
 //
 
 #import <XSDCustomCardView/XSDCustomCardView.h>
-@class XSDModel;
+@class XSDModel, XSDViewModel;
 #import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SubCarditemView : CardItemView
 
-@property (strong, nonatomic) AVPlayerLayer *playerLayer;
-- (void)configure:(XSDModel *)model;
+@property (nonatomic, weak) XSDViewModel * viewModel;
+@property (nonatomic, strong, nullable) AVPlayerLayer *playerLayer;
+- (void)configure:(XSDModel *)model index:(NSInteger)index;
 
 @end
 

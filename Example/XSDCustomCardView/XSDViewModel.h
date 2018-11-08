@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import XSDCustomCardView;
 
-@class XSDViewController;
+@class XSDViewController, CardItemView;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) CardView * cardView;
 
 + (instancetype)attachController:(XSDViewController *)controller;
-
-- (void)startWithIndex:(NSInteger)index;
+- (void)startWithIndex:(NSInteger)index carditemView:(__kindof CardItemView *)carditemView;
 
 @end
 

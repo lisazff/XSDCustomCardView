@@ -41,10 +41,15 @@
     for (NSInteger i = 0; i < 500; i ++) {
         XSDModel * m = [XSDModel new];
         
-        if (i % 2 == 0) {
-            m.videoURL = @"https://ugcbsy.qq.com/uwMRJfz-r5jAYaQXGdGnC2_ppdhgmrDlPaRvaV7F2Ic/y0363cqqo2d.mp4?sdtfrom=v1010&guid=75a4ffa11295d492b16c20b716aa51ef&vkey=2C9111D94D20D5D2361D77F45593567A0F41708C276BD8C70E786A04D05F3542BBF97E1641767F860FCE556B43336DB482A7C4921092738FEE96ABC7CF18CAF11D31FC44CBD91C80C9BE3182AD509E61764D2AE30C2F187377925A9F6326CF4D64B57C4AC4D547954A450CEAABD29FE1A9A08360F7409042";
-        } else if (i % 2 == 1) {
-            m.videoURL = @"https://ugcydzd.qq.com/uwMRJfz-r5jAYaQXGdGnC2_ppdhgmrDlPaRvaV7F2Ic/j0305bx8sf1.mp4?sdtfrom=v1010&guid=75a4ffa11295d492b16c20b716aa51ef&vkey=D5BC1A3B8625E605A42A26D7301ACC632D7DEB2BB95AF12A020647EBFA88450D1C168944D0116BA44ED4C3A66E0A3C2202856BF2A4D9A674EED53A1D82F8AAFA45E45C3EBD957F6177260EA68691455B7832537A8C4CECF7A4E28A6C6101793EB12527D5643FCA1D738B13503E51035A6880599F63605E2C";
+        if (i % 3 == 0) {
+            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/13_ef7eb591d50666a0239f3b31587e73a7_1.mp4";
+            m.imageURL = @"https://goss1.vcg.com/creative/vcg/800/new/gic19998843.jpg";
+        } else if (i % 3 == 1) {
+            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/3510416_59d5a0eab109faa3c92506fdb0df686a_0.mp4";
+            m.imageURL = @"https://goss4.vcg.com/creative/vcg/800/new/gic15681475.jpg";
+        } else if (i % 3 == 2) {
+            m.videoURL = @"http://tb-video.bdstatic.com/tieba-smallvideo-transcode/10_90e3fdfacc18bb02fd70006296242150_1.mp4";
+            m.imageURL = @"https://goss.vcg.com/creative/vcg/800/version23/VCG21d5d799668.jpg";
         }
         [_datas addObject:m];
     }
@@ -76,26 +81,26 @@
     if (itemView == nil) {
         itemView = [[SubCarditemView alloc] initWithReuseIdentifier:NSStringFromClass(SubCarditemView.class)];
     }
-    [itemView configure:_datas[index]];
+    itemView.viewModel = self;
+    [itemView configure:_datas[index] index:index];
     return itemView;
 }
 
 - (void)cardViewNeedMoreData:(CardView *)cardView {
-
-}
-
-- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction {
-}
-
-- (void)cardView:(CardView *)cardView didClickItemAtIndex:(NSInteger)index {
     
 }
 
-- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea {
-    NSLog(@"%lu", (unsigned long)moveArea);
+- (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView appearIndex:(NSInteger)index {
+    [self startWithIndex:index carditemView:cardItemView];
 }
 
-- (void)startWithIndex:(NSInteger)index {
+- (void)cardView:(CardView *)cardView dismissCardItemView:(__kindof CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction {
+    SubCarditemView * v = (SubCarditemView *)cardItemView;
+    [v.playerLayer removeFromSuperlayer];
+    v.playerLayer = nil;
+}
+
+- (void)startWithIndex:(NSInteger)index carditemView:(__kindof CardItemView *)carditemView {
     XSDModel * m = _datas[index];
     AVPlayerItem * playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:m.videoURL]];
     if (self.player) {
@@ -103,13 +108,11 @@
     } else {
         self.player = [AVPlayer playerWithPlayerItem:playerItem];
     }
-    if (_cardView) {
-        SubCarditemView * itemView = (SubCarditemView *)[self cardView:_cardView itemViewAtIndex:index];
-        itemView.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-        itemView.playerLayer.frame = itemView.bounds;
-        [itemView.layer addSublayer:itemView.playerLayer];
-        [self.player play];
-    }
+    SubCarditemView * view = (SubCarditemView *)carditemView;
+    view.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+    view.playerLayer.frame = view.bounds;
+    [view.layer addSublayer:view.playerLayer];
+    [self.player play];
 }
 
 @end

@@ -34,9 +34,10 @@ typedef NS_ENUM(NSUInteger, MoveArea) {
 @property (weak, nonatomic) id<CardItemViewDelegate> delegate;
 @property (nonatomic, readonly, copy) NSString * reuseIdentifier;
 
-- (void)initView;
+- (void)configure;
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (void)removeWithLeft:(BOOL)left;
+- (void)prepareForReuse;
 
 @end
 

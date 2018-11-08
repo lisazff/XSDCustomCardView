@@ -10,10 +10,12 @@
 @import Masonry;
 #import <AVFoundation/AVFoundation.h>
 #import "XSDModel.h"
+@import SDWebImage;
+#import "XSDViewModel.h"
 
 @interface SubCarditemView ()
 
-
+@property (nonatomic, strong) UIImageView * headImageView;
 
 @end
 
@@ -23,8 +25,7 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor yellowColor];
-        [self initView];
-        [self createUserInterface];
+        [self configure];
     }
     return self;
 }
@@ -32,7 +33,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initView];
+        [self configure];
         [self createUserInterface];
     }
     return self;
@@ -41,6 +42,7 @@
 - (void)createUserInterface {
     self.backgroundColor = [UIColor colorWithRed:arc4random() % 255/ 255.0 green:arc4random() % 255/ 255.0 blue:arc4random() % 255/ 255.0 alpha:1.0];
     UIImageView * headImageView = [[UIImageView alloc] init];
+    _headImageView = headImageView;
     [self addSubview:headImageView];
     headImageView.backgroundColor = UIColor.redColor;
     
@@ -60,7 +62,14 @@
     }];
 }
 
-- (void)configure:(XSDModel *)model {
+- (void)configure:(XSDModel *)model index:(NSInteger)index {
+    if (!model.videoURL) {
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:model.imageURL]];
+    }
+}
+
+- (void)prepareForReuse {
+
 }
 
 @end

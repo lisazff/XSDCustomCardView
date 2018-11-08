@@ -15,12 +15,9 @@
 
 @optional
 - (void)cardView:(CardView *)cardView didClickItemAtIndex:(NSInteger)index;
-- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction;
-- (void)cardView:(CardView *)cardView cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea;
-
-// TODO: 待添加的钩子
-- (void)cardView:(CardView *)cardView appearIndex:(NSInteger)index;
-- (void)cardView:(CardView *)cardView dismissIndex:(NSInteger)index;
+- (void)cardView:(CardView *)cardView dismissCardItemView:(__kindof CardItemView *)cardItemView index:(NSInteger)index didRemoveWithDirection:(RemoveRirection)direction;
+- (void)cardView:(CardView *)cardView moveCardItemView:(__kindof CardItemView *)cardItemView moveArea:(MoveArea)moveArea;
+- (void)cardView:(CardView *)cardView appearCardItemView:(__kindof CardItemView *)cardItemView appearIndex:(NSInteger)index;
 
 @end
 

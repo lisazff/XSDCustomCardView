@@ -10,6 +10,5 @@
 
 @interface XSDViewController : UIViewController
 
-- (void)animationForButton ;
 
 @end

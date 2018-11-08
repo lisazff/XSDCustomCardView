@@ -101,7 +101,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     }
     CGSize size = [self itemViewSizeAtIndex:index];
     [self insertSubview:itemView atIndex:0];
-    itemView.tag = index+1;
+    itemView.tag = index + 1;
     itemView.frame = CGRectMake(self.frame.size.width / 2.0 - size.width / 2.0, self.frame.size.height / 2.0 - size.height / 2.0, size.width, size.height);
     itemView.userInteractionEnabled = YES;
     if (!isReload) {
@@ -161,6 +161,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     self.removedCount ++;
     [self insertItemViewToReuseDict:cardItemView];
     [self insertCard:self.removedCount+ITEM_VIEW_COUNT-1 isReload:NO];
+    
     CardItemView *card = [self.subviews lastObject];
     card.userInteractionEnabled = YES;
     if (self.removedCount + ITEM_VIEW_COUNT > self.itemCount - AHEAD_ITEM_COUNT) {
@@ -173,14 +174,17 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
     } else {
         self.isAskingMoreData = NO;
     }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:cardItemView:index:didRemoveWithDirection:)]) {
-        [self.delegate cardView:self cardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:dismissCardItemView:index:didRemoveWithDirection:)]) {
+        [self.delegate cardView:self dismissCardItemView:cardItemView index:_removedCount didRemoveWithDirection:direction];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:appearCardItemView:appearIndex:)]) {
+        [self.delegate cardView:self appearCardItemView:card appearIndex:card.tag - 1];
     }
 }
 
 - (void)cardItemView:(CardItemView *)cardItemView moveArea:(MoveArea)moveArea {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:cardItemView:moveArea:)]) {
-        [self.delegate cardView:self cardItemView:cardItemView moveArea:moveArea];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cardView:moveCardItemView:moveArea:)]) {
+        [self.delegate cardView:self moveCardItemView:cardItemView moveArea:moveArea];
     }
 }
 
@@ -196,6 +200,7 @@ static const NSInteger AHEAD_ITEM_COUNT = 5;    //提前几张view开始提醒�
         }
         [mutableArray addObject:cardItemView];
         [self.reuseDict setValue:mutableArray forKey:cardItemView.reuseIdentifier];
+        [cardItemView prepareForReuse];
     }
     [cardItemView removeFromSuperview];
 }

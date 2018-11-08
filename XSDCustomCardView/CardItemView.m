@@ -29,7 +29,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self initView];
+        [self configure];
     }
     return self;
 }
@@ -39,7 +39,7 @@
     self.originalCenter = CGPointMake(frame.size.width / 2.0, frame.size.height / 2.0);
 }
 
-- (void)initView {
+- (void)configure {
     [self addPanGest];
     [self configLayer];
 }
@@ -160,6 +160,10 @@
             [self.delegate cardItemView:self didRemoveWithDirection:_isLeft == YES ? RemoveRirectionLeft : RemoveRirectionRight];
         }
     }];
+}
+
+- (void)prepareForReuse {
+    
 }
 
 @end
